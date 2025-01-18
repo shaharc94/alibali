@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const API_URL = "https://script.google.com/macros/s/AKfycbzm9lJ6lBHKpXUA4GrIw4rvRr_S9hBFXOSKAlc0RQChG0VD_K10Wk6m7S7jg5qR2cFKRw/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbx7roY5h4SxT3Ncah_bmo3k5rQIZDEM3aTbcmk1dc9gjZsCkdZR70TdFbhI9jWhHtillQ/exec";
 
     const loadingSpinner = document.getElementById("loading-spinner");
     const productsGrid = document.querySelector(".products-grid");
