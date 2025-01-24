@@ -1,207 +1,36 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AliWow - המלצות מעולות</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f5;
-        }
-
-        header {
-            background-color: #ff4747;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        nav {
-            background-color: white;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            list-style: none;
-        }
-
-        nav a {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        nav a:hover {
-            color: #ff4747;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 1rem;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            color: #ff4747;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #666;
-            margin: 0.5rem 0;
-        }
-
-        .buy-button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background-color: #ff4747;
-            color: white;
-            text-align: center;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 1rem;
-        }
-
-        .buy-button:hover {
-            background-color: #ff3333;
-        }
-
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 2rem 0;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff4747;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-    </style>
+    <title>עלי בא לי - המלצות למוצרים מעולים</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>AliWow - המלצות מעולות</h1>
+        <p id="title1">עלי בא לי</p>
+        <p id="title2">המלצות למוצרים מעלי אקספרס</p> 
     </header>
-
     <nav>
-        <ul>
-            <li><a href="#">דף הבית</a></li>
-            <li><a href="#">מבצעים חמים</a></li>
-            <li><a href="#">קטגוריות</a></li>
-            <li><a href="#">המלצות השבוע</a></li>
-            <li><a href="#">צור קשר</a></li>
-        </ul>
+        <a href="#dogs">מוצרים לכלבים</a>
+        <a href="#about">אודות</a>
     </nav>
-
-    <main>
-        <div id="loading-spinner" class="loading-spinner">
-            <div class="spinner"></div>
+    <div class="container">
+        <div class="category">
+            <h2 id="dogs">מוצרים מומלצים לכלבים</h2>
+            <div class="loading-spinner" id="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <div class="products-grid" style="display: none;"></div>
         </div>
-        <div class="product-grid" style="display: none;">
-            <!-- המוצרים יוזרמו דינאמית דרך JavaScript -->
+        <div id="about" class="category about">
+            <h2>אודות האתר</h2>
+            <p>עלי בא לי נולד מתוך אהבה לקניות חכמות והיכולת למצוא מוצרים איכותיים במחירים מעולים.</p>
         </div>
-    </main>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const API_URL = "https://script.google.com/macros/s/AKfycbx7roY5h4SxT3Ncah_bmo3k5rQIZDEM3aTbcmk1dc9gjZsCkdZR70TdFbhI9jWhHtillQ/exec";
-            const loadingSpinner = document.getElementById("loading-spinner");
-            const productGrid = document.querySelector(".product-grid");
-
-            fetch(API_URL)
-                .then(response => response.json())
-                .then(products => {
-                    productGrid.innerHTML = "";
-                    products.forEach(product => {
-                        const productCard = `
-                            <div class="product-card">
-                                <img src="${product.image}" alt="${product.name}" class="product-image">
-                                <div class="product-info">
-                                    <h3 class="product-title">${product.name}</h3>
-                                    <div class="product-price">₪${(Math.random() * 100 + 50).toFixed(2)}</div>
-                                    <a href="${product.link}" class="buy-button" target="_blank">לרכישה</a>
-                                </div>
-                            </div>
-                        `;
-                        productGrid.innerHTML += productCard;
-                    });
-
-                    loadingSpinner.style.display = "none";
-                    productGrid.style.display = "grid";
-                })
-                .catch(err => {
-                    console.error("Error loading products:", err);
-                    loadingSpinner.innerHTML = "<p>שגיאה בטעינת המוצרים. נסה שוב מאוחר יותר.</p>";
-                });
-        });
-    </script>
+    </div>
+    <footer>
+        &copy; 2025 עלי בא לי - כל הזכויות שמורות.
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
